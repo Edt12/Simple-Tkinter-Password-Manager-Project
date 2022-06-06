@@ -1,6 +1,6 @@
 
 import sqlite3
-from tkinter import *
+from tkinter import *  
 from tkinter import messagebox
 #creating database
 conn=sqlite3.connect("Passwords.db")
