@@ -1,11 +1,13 @@
 
 import sqlite3
-from tkinter import *  
+from tkinter import *     
 from tkinter import messagebox
+"python.suggest.autoImports: false"#disables autoImports for python in vscode file
+
 #creating database
 conn=sqlite3.connect("Passwords.db")
 cursor=conn.cursor()
-#creating table-num of quotation is number of lines,name of field then datatype e.g passwordName text
+#creating table-num of quotation is number of lines,name of field then datatype e.g passwordNameoutofdatabase text
 cursor.execute("""create table IF NOT EXISTS Passwords
 (passwordName text PRIMARY KEY
 ,UserName text
@@ -57,17 +59,17 @@ def loginClick():
             newPasswordlabel.place(x=215, y=50)
 
             def nameEntry():
-                passwordName = NameofPassword.get()
+                passwordNameoutofdatabase = NameofPassword.get()
                 username = Name.get()
                 password = Password.get()  # gets input from the input box
                 cursor.execute("""SELECT passwordName
                                 FROM Passwords
                                 WHERE passwordName=?
                                 """,
-                (passwordName,))#selects passwordName from table then Selects Where column = passwordName/any variable as variables by question marks in sqlite3
+                (passwordNameoutofdatabase,))#selects passwordName1 from table then Selects Where column = passwordNameoutofdatabase/any variable as variables by question marks in sqlite3
                 primaryKeyCheck=cursor.fetchone()
                 print(primaryKeyCheck)
-                #Insert passwordname,Username,password
+                #Insert passwordNameoutofdatabase,Username,password
                 if primaryKeyCheck!=None:
                     NameofPassword.delete(0, END)  # deletes text within the range of 0 to end
                     Name.delete(0, END)
@@ -77,14 +79,21 @@ def loginClick():
                     NameofPassword.delete(0, END)  # deletes text within the range of 0 to end
                     Name.delete(0, END)
                     Password.delete(0, END)
-                    cursor.execute("INSERT INTO Passwords (passwordName,Username,password )VALUES(?,?,?)",(passwordName,username,password,))#Inserts variables into table by referencing which variables correspond to each column
+                    cursor.execute("INSERT INTO Passwords (passwordName,Username,password )VALUES(?,?,?)",(passwordNameoutofdatabase,username,password,))#Inserts variables into table by referencing which variables correspond to each column
                     conn.commit()
                     cursor.execute("SELECT*FROM Passwords")#Selects Passwords table
-                    steve=cursor.fetchall()#fetches everything selected
-                    cursor.close()#closes database
-                    print(steve)#prints everything fetched
+                    Data=cursor.fetchall()#fetches everything selected
+                    cursor.execute("SELECT passwordName FROM Passwords")#selects password name from table
+                    passwordNames=cursor.execute("Select passwordName FROM Passwords")
+                    Passwords=cursor.execute("SELECT* FROM Passwords")
+                    for passwordNames in Passwords:
+                            Button(main,text="1",font=("freesans",20))
+                            print("steve")
 
-                if passwordName != "" and username != "" and password != "":  # checks that the user has typed in all the input boxes
+                    cursor.close()#closes database
+                    print(Data)#prints everything fetched
+
+                if passwordNameoutofdatabase != "" and username != "" and password != "":  # checks that the user has typed in all the input boxes
                     NameofPassword.destroy()  # destroy destroys labels and other widgets
                     Name.destroy()
                     Password.destroy()
